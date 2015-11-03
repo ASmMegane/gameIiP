@@ -9,8 +9,7 @@
 #include "gameData.h"
 
 void ConfigPrepare(Config & conf)
-{
-	conf.heroImg.loadFromFile(conf.imageAdres);
+{	
 	conf.backeImg.loadFromFile(conf.imageBacke);
 };
 
@@ -18,11 +17,15 @@ void gameInitializeSprite(Config & conf, GameData & gData)
 {
 	gData.window.create(sf::VideoMode(800, 600), "Game");
 
-	gData.heroTexture.loadFromImage(conf.heroImg);
-	gData.hero.setTexture(gData.heroTexture);
-	gData.heroRect.height = conf.heroImg.getSize().y;
-	gData.heroRect.width = conf.heroImg.getSize().x;
-	gData.hero.setTextureRect(sf::IntRect(gData.heroRect.width, 0, -gData.heroRect.width, gData.heroRect.height));
+	sf::Image Img;
+	Img.loadFromFile(conf.imageAdres);
+	Img.createMaskFromColor(Img.getPixel(0, 0));
+	gData.gameSprites["hero"].texture.loadFromImage(Img);
+	gData.gameSprites["hero"].baseTPF = sf::milliseconds(1000/6.0);
+	gData.gameSprites["hero"].frameCount = 4;
+	gData.gameSprites["hero"].frameSize.height = gData.gameSprites["hero"].texture.getSize().y;
+	gData.gameSprites["hero"].frameSize.width = gData.gameSprites["hero"].texture.getSize().x / gData.gameSprites["hero"].frameCount;
+	gData.gameSprites["hero"].spriteItems.push_front(MySpriteDinamics(gData.gameSprites["hero"].texture));
 
 	
 	gData.backeTexture.loadFromImage(conf.backeImg);
@@ -51,23 +54,35 @@ void GameRun(Config & conf, GameData & gData)
 				(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape))
 				gData.window.close();
 		}
+
 		if ((gData.backeG1.getPosition().x < 0) && (gData.backeG1.getPosition().x > -1)) {gData.backeG2.setPosition(800,0); }
 		if ((gData.backeG2.getPosition().x < 0) && (gData.backeG2.getPosition().x > -1)) {gData.backeG1.setPosition(800,0); }
 		gData.backeG1.move(-0.0001*time, 0);
 		gData.backeG2.move(-0.0001*time, 0);
 
-		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) && gData.hero.getPosition().x > 0) { gData.hero.move(-0.001*time, 0); (gData.hero.setTextureRect(sf::IntRect(gData.heroRect.width, 0, -gData.heroRect.width, gData.heroRect.height))); }
-		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) && gData.hero.getPosition().x < (gData.window.getSize().x - conf.heroImg.getSize().x)) { gData.hero.move(0.001*time, 0); (gData.hero.setTextureRect(sf::IntRect(gData.heroRect.width, 0, -gData.heroRect.width, gData.heroRect.height))); }
-		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) && gData.hero.getPosition().y > 0) { gData.hero.move(0, -0.001*time); (gData.hero.setTextureRect(sf::IntRect(gData.heroRect.width, 0, -gData.heroRect.width, gData.heroRect.height))); }
-		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) && gData.hero.getPosition().y < (gData.window.getSize().y - conf.heroImg.getSize().y)) { gData.hero.move(0, 0.001*time); (gData.hero.setTextureRect(sf::IntRect(gData.heroRect.width, 0, -gData.heroRect.width, gData.heroRect.height))); }
+		std::list <MySpriteDinamics>::iterator heroItr;
+		heroItr = gData.gameSprites["hero"].spriteItems.begin();
+		heroItr->frameChangeTime += sf::microseconds(time);
+		if (heroItr->frameChangeTime >= gData.gameSprites["hero"].baseTPF) {
+			int frameInc = (heroItr->frameChangeTime / gData.gameSprites["hero"].baseTPF);
+			heroItr->frameCurrent += frameInc;
+			heroItr->frameCurrent = heroItr->frameCurrent % gData.gameSprites["hero"].frameCount;
+			heroItr->frameChangeTime -= sf::microseconds(frameInc * gData.gameSprites["hero"].baseTPF.asMicroseconds());
+		}
 
-
+		heroItr->sprite.setTextureRect(sf::IntRect(gData.gameSprites["hero"].frameSize.width * (heroItr->frameCurrent + 1), 0, -gData.gameSprites["hero"].frameSize.width, gData.gameSprites["hero"].frameSize.height));
 		
+		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) && heroItr->sprite.getPosition().x > 0) { heroItr->sprite.move(-0.001*time, 0); }
+		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) && heroItr->sprite.getPosition().x < (gData.window.getSize().x - gData.gameSprites["hero"].frameSize.width)) { heroItr->sprite.move(0.001*time, 0); }
+		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) && heroItr->sprite.getPosition().y > 0) { heroItr->sprite.move(0, -0.001*time); }
+		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) && heroItr->sprite.getPosition().y < (gData.window.getSize().y - gData.gameSprites["hero"].frameSize.height)) { heroItr->sprite.move(0, 0.001*time); }
+				
 		gData.window.clear();
 		gData.window.draw(gData.backeG1);
 		gData.window.draw(gData.backeG2);
-		gData.window.draw(gData.hero);
-		gData.window.display();
+		gData.window.draw(heroItr->sprite);
+		gData.window.display();	
+		
 	}
 };
 
