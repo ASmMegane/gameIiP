@@ -14,8 +14,9 @@ struct Config {
 	std::string imageAdres = "image/heroFly.png";	
 	std::string imageBacke = "image/backeGraund.jpg";
 	std::string imageEnemy1 = "image/enemy1.png";
+	std::string imageBulett1 = "image/bulett1.png";
 	sf::Image backeImg;
-	const float timeDistanceCreate = 400000;
+	const float timeDistanceCreate = 100000;
 };
 
 struct moveingSprite {
