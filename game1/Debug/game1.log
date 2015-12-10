@@ -1,10 +1,16 @@
-﻿  gameInit.cpp
-d:\my documents\visual studio 2015\projects\game1\game1\gameinit.cpp(11): warning C4244: 'argument': conversion from 'double' to 'sf::Int32', possible loss of data
-d:\my documents\visual studio 2015\projects\game1\game1\gameinit.cpp(15): warning C4305: '=': truncation from 'double' to 'float'
-d:\my documents\visual studio 2015\projects\game1\game1\gameinit.cpp(27): warning C4244: 'argument': conversion from 'double' to 'sf::Int32', possible loss of data
-d:\my documents\visual studio 2015\projects\game1\game1\gameinit.cpp(31): warning C4305: '=': truncation from 'double' to 'float'
-d:\my documents\visual studio 2015\projects\game1\game1\gameinit.cpp(38): warning C4244: 'argument': conversion from 'double' to 'sf::Int32', possible loss of data
-d:\my documents\visual studio 2015\projects\game1\game1\gameinit.cpp(42): warning C4305: '=': truncation from 'double' to 'float'
-d:\my documents\visual studio 2015\projects\game1\game1\gameinit.cpp(52): warning C4305: 'argument': truncation from 'double' to 'float'
-d:\my documents\visual studio 2015\projects\game1\game1\gameinit.cpp(53): warning C4305: 'argument': truncation from 'double' to 'float'
+﻿  game1.cpp
+d:\my documents\visual studio 2015\projects\game1\game1\game1.cpp(19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+d:\my documents\visual studio 2015\projects\game1\game1\game1.cpp(20): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+d:\my documents\visual studio 2015\projects\game1\game1\game1.cpp(21): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+d:\my documents\visual studio 2015\projects\game1\game1\game1.cpp(22): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+d:\my documents\visual studio 2015\projects\game1\game1\game1.cpp(47): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+d:\my documents\visual studio 2015\projects\game1\game1\game1.cpp(48): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+d:\my documents\visual studio 2015\projects\game1\game1\game1.cpp(49): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\my documents\visual studio 2015\projects\game1\game1\game1.cpp(118): warning C4244: 'initializing': conversion from 'sf::Int64' to 'float', possible loss of data
+d:\my documents\visual studio 2015\projects\game1\game1\game1.cpp(152): warning C4018: '>': signed/unsigned mismatch
+d:\my documents\visual studio 2015\projects\game1\game1\game1.cpp(155): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\my documents\visual studio 2015\projects\game1\game1\game1.cpp(159): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+d:\my documents\visual studio 2015\projects\game1\game1\game1.cpp(167): warning C4244: 'argument': conversion from 'float' to 'sf::Int64', possible loss of data
+d:\my documents\visual studio 2015\projects\game1\game1\game1.cpp(170): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+d:\my documents\visual studio 2015\projects\game1\game1\game1.cpp(212): warning C4244: 'argument': conversion from 'double' to 'sf::Int64', possible loss of data
   game1.vcxproj -> D:\My Documents\Visual Studio 2015\Projects\game1\Debug\game1.exe

@@ -14,7 +14,9 @@ struct Config {
 	std::string imageAdres = "image/heroFly.png";	
 	std::string imageBacke = "image/backeGraund.jpg";
 	std::string imageEnemy1 = "image/enemy1.png";
+	std::string imageEnemy2 = "image/enemy2.png";
 	std::string imageBulett1 = "image/bulett1.png";
+	std::string imageExplotion = "image/explotion.png";
 	sf::Image backeImg;
 	const float timeDistanceCreate = 100000;
 };
@@ -28,8 +30,10 @@ struct moveingSprite {
 
 struct MySpriteDinamics 
 {
-	MySpriteDinamics(sf::Texture & texture) { 
-		frameCurrent = 0; frameChangeTime = sf::microseconds(0); sprite.setTexture(texture); spriteHeal = 100;};
+	MySpriteDinamics(sf::Texture & texture, sf::IntRect & size, int & startLive) { 
+		frameCurrent = 0; frameChangeTime = sf::microseconds(0); sprite.setTexture(texture); spriteHeal = startLive;
+		sprite.setTextureRect(sf::IntRect(0, 0, -size.width, size.height));
+	};
 	sf::Sprite sprite;
 	int frameCurrent;
 	sf::Time frameChangeTime;
@@ -42,12 +46,14 @@ struct MySpriteStatics
 {
 	sf::Texture texture;
 	sf::IntRect frameSize;
+	int maxLive;
 	int frameCount;
 	int countOfItemsMAX;
 	sf::Time baseTPF;
 	float baseSpeedPx;
 	bool isFlyOutOfScreen;
 	std::list <MySpriteDinamics> spriteItems;
+	bool isCycleFrames = true;
 };
 
 struct GameData 
