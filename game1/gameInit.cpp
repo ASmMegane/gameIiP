@@ -3,8 +3,22 @@
 
 void gameInitializeSprite(Config & conf, GameData & gData) {
 	gData.window.create(sf::VideoMode(800, 600), "Game");
+	gData.window.setKeyRepeatEnabled(false);
 
 	sf::Image Img;
+	Img.loadFromFile(conf.imageExplotion);
+	Img.createMaskFromColor(Img.getPixel(0, 0));
+	gData.gameSprites["expl"].texture.loadFromImage(Img);
+	gData.gameSprites["expl"].baseTPF = sf::milliseconds(1000 / 30.0);
+	gData.gameSprites["expl"].frameCount = 12;
+	gData.gameSprites["expl"].frameSize.height = gData.gameSprites["expl"].texture.getSize().y;
+	gData.gameSprites["expl"].frameSize.width = gData.gameSprites["expl"].texture.getSize().x / gData.gameSprites["expl"].frameCount;
+	gData.gameSprites["expl"].baseSpeedPx = 0;
+	gData.gameSprites["expl"].countOfItemsMAX = 0;
+	gData.gameSprites["expl"].maxLive = 0;
+	gData.gameSprites["expl"].isFlyOutOfScreen = true;
+	gData.gameSprites["expl"].isCycleFrames = false;
+
 	Img.loadFromFile(conf.imageAdres);
 	Img.createMaskFromColor(Img.getPixel(0, 0));
 	gData.gameSprites["hero"].texture.loadFromImage(Img);
@@ -30,7 +44,7 @@ void gameInitializeSprite(Config & conf, GameData & gData) {
 	gData.gameSprites["enemy1"].frameCount = 6;
 	gData.gameSprites["enemy1"].frameSize.height = gData.gameSprites["enemy1"].texture.getSize().y;
 	gData.gameSprites["enemy1"].frameSize.width = gData.gameSprites["enemy1"].texture.getSize().x / gData.gameSprites["enemy1"].frameCount;
-	gData.gameSprites["enemy1"].baseSpeedPx = 0.0003;
+	gData.gameSprites["enemy1"].baseSpeedPx = 0.00035;
 	gData.gameSprites["enemy1"].countOfItemsMAX = 10;
 	gData.gameSprites["enemy1"].maxLive = 4;
 	gData.gameSprites["enemy1"].isFlyOutOfScreen = true;
@@ -59,18 +73,17 @@ void gameInitializeSprite(Config & conf, GameData & gData) {
 	gData.gameSprites["bullet"].maxLive = 2;
 	gData.gameSprites["bullet"].isFlyOutOfScreen = true;
 
-	Img.loadFromFile(conf.imageExplotion);
+	Img.loadFromFile(conf.imageBulettEnemy);
 	Img.createMaskFromColor(Img.getPixel(0, 0));
-	gData.gameSprites["expl"].texture.loadFromImage(Img);
-	gData.gameSprites["expl"].baseTPF = sf::milliseconds(1000 / 30.0);
-	gData.gameSprites["expl"].frameCount = 12;
-	gData.gameSprites["expl"].frameSize.height = gData.gameSprites["expl"].texture.getSize().y;
-	gData.gameSprites["expl"].frameSize.width = gData.gameSprites["expl"].texture.getSize().x / gData.gameSprites["expl"].frameCount;
-	gData.gameSprites["expl"].baseSpeedPx = 0;
-	gData.gameSprites["expl"].countOfItemsMAX = 0;
-	gData.gameSprites["expl"].maxLive = 0;
-	gData.gameSprites["expl"].isFlyOutOfScreen = true;
-	gData.gameSprites["expl"].isCycleFrames = false;
+	gData.gameSprites["bulletEnemy"].texture.loadFromImage(Img);
+	gData.gameSprites["bulletEnemy"].baseTPF = sf::milliseconds(1000 / 6.0);
+	gData.gameSprites["bulletEnemy"].frameCount = 1;
+	gData.gameSprites["bulletEnemy"].frameSize.height = gData.gameSprites["bulletEnemy"].texture.getSize().y;
+	gData.gameSprites["bulletEnemy"].frameSize.width = gData.gameSprites["bulletEnemy"].texture.getSize().x / gData.gameSprites["bulletEnemy"].frameCount;
+	gData.gameSprites["bulletEnemy"].baseSpeedPx = 0.0004;
+	gData.gameSprites["bulletEnemy"].countOfItemsMAX = 0;
+	gData.gameSprites["bulletEnemy"].maxLive = 1;
+	gData.gameSprites["bulletEnemy"].isFlyOutOfScreen = true;
 
 
 	gData.backeTexture.loadFromImage(conf.backeImg);
