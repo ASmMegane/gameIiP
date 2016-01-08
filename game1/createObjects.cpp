@@ -11,7 +11,7 @@ int randomNumber(const int & size) {
 
 
 void createShotForHero(GameData & gData) {
-	gData.gameSprites["bullet"].spriteItems.push_front(MySpriteDinamics(gData.gameSprites["bullet"].texture, gData.gameSprites["bullet"].frameSize, gData.gameSprites["bullet"].maxLive));
+	gData.gameSprites["bullet"].spriteItems.emplace_front(gData.gameSprites["bullet"].texture, gData.gameSprites["bullet"].frameSize, gData.gameSprites["bullet"].maxLive);
 	auto bulletItr = gData.gameSprites["bullet"].spriteItems.begin();
 	auto heroItr = gData.gameSprites["hero"].spriteItems.begin();
 	bulletItr->mSprite.signMoveHorizont = 1;
@@ -21,7 +21,7 @@ void createShotForHero(GameData & gData) {
 }
 
 void createShotForEnemy(GameData & gData, sf::Sprite & spriteEnemy) {
-	gData.gameSprites["bulletEnemy"].spriteItems.push_front(MySpriteDinamics(gData.gameSprites["bulletEnemy"].texture, gData.gameSprites["bulletEnemy"].frameSize, gData.gameSprites["bulletEnemy"].maxLive));
+	gData.gameSprites["bulletEnemy"].spriteItems.emplace_front(gData.gameSprites["bulletEnemy"].texture, gData.gameSprites["bulletEnemy"].frameSize, gData.gameSprites["bulletEnemy"].maxLive);
 	auto bulletItr = gData.gameSprites["bulletEnemy"].spriteItems.begin();
 	bulletItr->mSprite.signMoveHorizont = -1;
 	bulletItr->mSprite.signMoveVertical = 0;
@@ -31,7 +31,7 @@ void createShotForEnemy(GameData & gData, sf::Sprite & spriteEnemy) {
 
 
 void createExplotion(GameData & gData, const MySpriteDinamics & object, const bool & isBullet) {
-	gData.gameSprites["expl"].spriteItems.push_front(MySpriteDinamics(gData.gameSprites["expl"].texture, gData.gameSprites["expl"].frameSize, gData.gameSprites["expl"].maxLive));
+	gData.gameSprites["expl"].spriteItems.emplace_front(gData.gameSprites["expl"].texture, gData.gameSprites["expl"].frameSize, gData.gameSprites["expl"].maxLive);
 	auto explItr = gData.gameSprites["expl"].spriteItems.begin();
 	explItr->mSprite.signMoveHorizont = 0;
 	explItr->mSprite.signMoveVertical = 0;
@@ -46,7 +46,7 @@ void createExplotion(GameData & gData, const MySpriteDinamics & object, const bo
 void createEnemy(GameData & gData, Config & conf, float & timeCreate, std::string const & keyStatic) {
 	if (gData.gameSprites[keyStatic].countOfItemsMAX > (int)gData.gameSprites[keyStatic].spriteItems.size()) {
 		if (timeCreate <= 0 && (randomNumber(6000)) < 40) {
-			gData.gameSprites[keyStatic].spriteItems.push_front(MySpriteDinamics(gData.gameSprites[keyStatic].texture, gData.gameSprites[keyStatic].frameSize, gData.gameSprites[keyStatic].maxLive));
+			gData.gameSprites[keyStatic].spriteItems.emplace_front(gData.gameSprites[keyStatic].texture, gData.gameSprites[keyStatic].frameSize, gData.gameSprites[keyStatic].maxLive);
 			gData.gameSprites[keyStatic].spriteItems.begin()->mSprite.speedKoof = (float)((randomNumber(15)) / 10 + 0.8);
 			gData.gameSprites[keyStatic].spriteItems.begin()->mSprite.moveTaktik = 1;
 			gData.gameSprites[keyStatic].spriteItems.begin()->mSprite.signMoveHorizont = -1;
@@ -54,6 +54,5 @@ void createEnemy(GameData & gData, Config & conf, float & timeCreate, std::strin
 			gData.gameSprites[keyStatic].spriteItems.begin()->sprite.setPosition((float)(gData.window.getSize().x - 1), (float)(randomNumber(gData.window.getSize().y - gData.gameSprites["enemy1"].frameSize.width)) + 1);
 			timeCreate = conf.timeDistanceCreate;
 		}
-
 	}
 }

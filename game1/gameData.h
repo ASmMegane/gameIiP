@@ -48,6 +48,7 @@ struct MySpriteDinamics
 
 struct MySpriteStatics
 {
+	MySpriteStatics() {};
 	sf::Texture texture;
 	sf::IntRect frameSize;
 	int maxLive;
@@ -62,6 +63,7 @@ struct MySpriteStatics
 
 struct GameData 
 {
+	GameData() {};
 	sf::RenderWindow window;
 	sf::Texture backeTexture;
 	sf::Sprite  backeG1;
@@ -71,3 +73,4 @@ struct GameData
 };
 
 void events(sf::Event & event, GameData & gData);
+//bool moveForDinamics(MySpriteDinamics &dinamicElement, MySpriteStatics &staticElement, GameData & gData, std::string staticKey, float time);
